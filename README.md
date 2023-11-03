@@ -1,7 +1,15 @@
-# AppSheet Document AI Service
+# AppSheet Document AI Adapter
 This service provides an easy way to use the [Google Cloud Document AI](https://cloud.google.com/document-ai) form processor within AppSheet apps. This service can be deployed with one-click to [Google Cloud Run](https://cloud.google.com/run), where it serves as adapter between a No-Code AppSheet app, and the powerful form processing features of Document AI. 
 
 Deployment and maintenance can be easily automated, with the minimal code provided in the service taking care of all of the logic needed to use Doc AI in AppSheet.
+
+## Deploy
+
+To deploy, simply click on this button to deploy into a chosen GCP project:
+
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
+View a complete deployment and usage guide: [Using Google Cloud Document AI with AppSheet]()
 
 ## Architecture
 Here is a high level architecture diagram of the solution.
@@ -18,13 +26,8 @@ You should configure a Document AI form processor before deploying this service 
 
 The costs to run the solution should be minimal, since Cloud Run gives 2 million calls for free each month, and the [costs](https://cloud.google.com/document-ai/pricing) for Document AI form processing are reasonable for small volumes.
 
-## Deploy
-
-To deploy, simply click on this button to deploy into a chosen GCP project:
-
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
-
-Or you can also deploy manually by cloning this repository, adding your project details into the deploy script, and calling the scripts in this order:
+## Debug
+You can deploy manually by cloning this repository, adding your project details into the deploy script, and calling the scripts in this order:
 
 ```bash
 # Deploy solution
@@ -37,4 +40,4 @@ Or you can also deploy manually by cloning this repository, adding your project 
 ./3_test.sh
 ```
 
-See complete guide to deploying and using the solution in this [community article](https://www.googlecloudcommunity.com/gc/Tips-Tricks/Use-Google-Cloud-Generative-AI-Image-Models-in-AppSheet-as-seen/td-p/629835) on the Google Cloud Community AppSheet site.
+You can also debug the service locally using the VSCode debug configuration and setting the environment variables correctly.
