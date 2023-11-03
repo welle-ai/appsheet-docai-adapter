@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  description: API for managing documents.
+  version: 0.0.1
+  title: Document API
+servers:
+  - url: SERVER_URL
+security:
+  - ApiKeyAuth: []
+paths:
+  /documents:
+    get:
+      summary: List objects.
+      description: Retrieve a page of objects from the server.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Documents:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ListOfDocuments"
+    post:
+      summary: Creates a new object.
+      description: Creates a new object.
+      requestBody:
+        description: The object to create.
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Document"
+      responses:
+        "201":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Document"
+  /documents/{id}:
+    get:
+      summary: Retrieve object.
+      description: Retrieve a single object.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the desired object.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Document"
+        "404":
+          description: Object was not found.
+    put:
+      summary: Update object.
+      description: Update a single object.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the desired object.
+          schema:
+            type: string
+      requestBody:
+        description: The object to update.
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Document"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Document"
+        "404":
+          description: Object was not found.
+    delete:
+      summary: Delete object.
+      description: Delete a single object.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the desired object.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+        "404":
+          description: Object was not found.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: x-apikey
+      in: header
+  schemas:
+    Document:
+      title: Document
+      type: object
+      properties:
+        id:
+          description: The id of the object
+          type: string
+          example: hu32hu3
+        dateTime:
+          description: The date-time of the object
+          type: string
+          example: 8/9/2023 9:38:51 AM
+        description:
+          description: The text of the object
+          type: string
+          example: Example description
+        file:
+          description: The file path of the document
+          type: string
+          example: /path/to/doc
+        formFields:
+          description: The form fields of the document
+          type: string
+          example: "\nEnglish\n=☑ \nFrançais\n=☑"
+        formThumbnail:
+          description: A thumbnail image of the document
+          type: string
+        totalFields:
+          description: How many total fields were found in the document
+          type: integer
+          example: 12
+        filledFields:
+          description: How many of the fields are filled with data
+          type: integer
+          example: 8
+    ListOfDocuments:
+      title: List of objects
+      type: array
+      items:
+        $ref: "#/components/schemas/Document"

@@ -1,0 +1,21 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python app",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "console": "integratedTerminal",
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "YOUR_SERVICE_KEY.json",
+        "GCLOUD_PROJECT": "YOUR_PROJECT",
+        "GCP_DOCAI_REGION": "YOUR_DOCAI_REGION",
+        "GCP_DOCAI_PROCESSOR_ID": "YOUR_DOCAI_PROCESSOR_ID"
+      }
+    }
+  ]
+}
