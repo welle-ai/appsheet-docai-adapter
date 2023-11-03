@@ -9,7 +9,7 @@ To deploy, simply click on this button to deploy into a chosen GCP project:
 
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
-View a complete deployment and usage guide: [Using Google Cloud Document AI with AppSheet]()
+View a complete deployment and usage guide: [Using Google Cloud Document AI with AppSheet](https://www.googlecloudcommunity.com/gc/Tips-Tricks/Guide-Using-Google-Cloud-Document-AI-with-AppSheet/m-p/659636#M9007)
 
 ## Architecture
 Here is a high level architecture diagram of the solution.
