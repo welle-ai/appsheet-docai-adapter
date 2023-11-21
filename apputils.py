@@ -99,8 +99,10 @@ def getFileFromDrive(name):
 def callDocAI(documentPath: str):
 
   output = {
+    "text": "",
     "formFields": "",
-    "formThumbnail": "",
+    "entities": "",
+    "image": "",
     "totalFields": 0,
     "filledFields": 0
   }
@@ -133,7 +135,7 @@ def callDocAI(documentPath: str):
     
     break
 
-  opts = {"api_endpoint": "eu-documentai.googleapis.com"}
+  opts = {"api_endpoint": location + "-documentai.googleapis.com"}
 
   client = documentai.DocumentProcessorServiceClient(client_options=opts)
   name = f"projects/{project}/locations/{location}/processors/{processor_id}"
@@ -155,18 +157,33 @@ def callDocAI(documentPath: str):
 
   document_pages = document.pages
 
+  output["text"] = document.text
   formFields = ""
+  entities = ""
   for page in document_pages:
-    for form_field in page.form_fields:
-      fieldLabel = _get_text(form_field.field_name, document).replace("\n", "").replace(":", "").strip()
-      fieldValue = _get_text(form_field.field_value, document).replace("\n", "")
-      formFields += "\n" + fieldLabel + "=" + fieldValue
+    if page.page_number == 1:
+        #output["formThumbnail"] = "data:image/png;base64," + page.image.content.decode("utf-8")
+        pic = base64.b64encode(page.image.content)
+        output["image"] = pic.decode("utf-8")
 
-      output["totalFields"] = output["totalFields"] + 1
-      if fieldValue != "":
-        output["filledFields"] = output["filledFields"] + 1
+    for form_field in page.form_fields:
+        fieldLabel = _get_text(form_field.field_name, document).replace("\n", "").replace(":", "").strip()
+        fieldValue = _get_text(form_field.field_value, document).replace("\n", "")
+        formFields += "\n" + fieldLabel + "=" + fieldValue
+
+        output["totalFields"] = output["totalFields"] + 1
+        if fieldValue != "":
+            output["filledFields"] = output["filledFields"] + 1
 
   output["formFields"] = formFields
+
+  for entity in document.entities:
+    name = entity.type_
+    value = entity.mention_text
+    entities += "\n" + name + "=" + value
+
+  output["entities"] = entities
+
   return output
 
 # Helper function to get text from form fields

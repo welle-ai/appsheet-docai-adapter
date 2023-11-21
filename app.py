@@ -65,10 +65,12 @@ class datahandler:
         logging.error("Calling DocAI with file path: " + documentPath)
 
         result = callDocAI(documentPath)
+        data["text"] = result["text"]
         data["formFields"] = result["formFields"]
-        data["formThumbnail"] = result["formThumbnail"]
+        data["image"] = result["image"]
         data["totalFields"] = result["totalFields"]
         data["filledFields"] = result["filledFields"]
+        data["entities"] = result["entities"]
 
         self.db.collection(topic).document(data["id"]).set(data)
 

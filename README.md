@@ -40,4 +40,4 @@ You can deploy manually by cloning this repository, adding your project details 
 ./3_test.sh
 ```
 
-You can also debug the service locally using the VSCode debug configuration and setting the environment variables correctly.
+You can also debug the service locally using the VSCode debug configuration and setting the environment variables in `/.vscode/launch.json` correctly.

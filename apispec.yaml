@@ -129,11 +129,19 @@ components:
           description: The file path of the document
           type: string
           example: /path/to/doc
+        text:
+          description: Text version of the file
+          type: string
+          example: "\nEnglish\n=☑ \nFrançais\n=☑"
         formFields:
           description: The form fields of the document
           type: string
           example: "\nEnglish\n=☑ \nFrançais\n=☑"
-        formThumbnail:
+        entities:
+          description: The named entities found in the document
+          type: string
+          example: "\nEnglish\n=☑ \nFrançais\n=☑"
+        image:
           description: A thumbnail image of the document
           type: string
         totalFields:

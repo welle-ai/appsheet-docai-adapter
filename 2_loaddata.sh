@@ -25,10 +25,16 @@ do
             'description': {
                 'stringValue': 'Filing form.'
             },
+            'text': {
+                'stringValue': 'field1: value1'
+            },            
             'formFields': {
                 'stringValue': 'field1: value1'
             },
-            'formThumbnail': {
+            'entities': {
+                'stringValue': 'field1: value1'
+            },            
+            'image': {
                 'stringValue': '/thumbnail.png'
             },
             'totalFields': {
