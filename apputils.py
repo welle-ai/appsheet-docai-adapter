@@ -161,10 +161,10 @@ def callDocAI(documentPath: str):
   formFields = ""
   entities = ""
   for page in document_pages:
-    if page.page_number == 1:
+    # if page.page_number == 1:
         #output["formThumbnail"] = "data:image/png;base64," + page.image.content.decode("utf-8")
-        pic = base64.b64encode(page.image.content)
-        output["image"] = pic.decode("utf-8")
+        # pic = base64.b64encode(page.image.content)
+        # output["image"] = pic.decode("utf-8")
 
     for form_field in page.form_fields:
         fieldLabel = _get_text(form_field.field_name, document).replace("\n", "").replace(":", "").strip()
