@@ -4,6 +4,9 @@ export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
 
 set +e
 
+$(curl --location --request DELETE "https://firestore.googleapis.com/v1/projects/$GOOGLE_CLOUD_PROJECT/databases/(default)/documents/$TOPIC/b78dfdb" \
+    --header "Authorization: Bearer $TOKEN")
+
 COUNTER=0
 
 while [ $COUNTER -le 10 ]
@@ -23,7 +26,7 @@ do
                 'stringValue': '/testdoc.pdf'
             },
             'description': {
-                'stringValue': 'Filing form.'
+                'stringValue': 'Filing form 1.'
             },
             'text': {
                 'stringValue': 'field1: value1'
