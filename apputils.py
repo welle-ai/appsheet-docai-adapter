@@ -131,7 +131,7 @@ def callDocAI(documentPath: str):
       print("Download " + str(int(status.progress() * 100)))
 
     if "thumbnailLink" in file:
-        output["formThumbnail"] = file["thumbnailLink"]
+        output["image"] = file["thumbnailLink"]
     
     break
 
