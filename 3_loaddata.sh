@@ -1,17 +1,17 @@
 TOKEN=$(gcloud auth print-access-token)
 export TOPIC=documents
-export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
+export PROJECT=$(gcloud config get project)
 
 set +e
 
-$(curl --location --request DELETE "https://firestore.googleapis.com/v1/projects/$GOOGLE_CLOUD_PROJECT/databases/(default)/documents/$TOPIC/b78dfdb" \
+$(curl --location --request DELETE "https://firestore.googleapis.com/v1/projects/$PROJECT/databases/(default)/documents/$TOPIC/b78dfdb" \
     --header "Authorization: Bearer $TOKEN")
 
 COUNTER=0
 
 while [ $COUNTER -le 10 ]
 do
-    RESULT=$(curl --location --request POST "https://firestore.googleapis.com/v1/projects/$GOOGLE_CLOUD_PROJECT/databases/(default)/documents/$TOPIC?documentId=b78dfdb" \
+    RESULT=$(curl --location --request POST "https://firestore.googleapis.com/v1/projects/$PROJECT/databases/(default)/documents/$TOPIC?documentId=b78dfdb" \
     --header "Authorization: Bearer $TOKEN" \
     --header "Content-Type: application/json" \
     --data-raw "{
