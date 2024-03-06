@@ -11,13 +11,14 @@ gcloud services enable drive.googleapis.com
 gcloud artifacts repositories create docker-registry --repository-format=docker \
 --location="$REGION" --description="Docker registry"    
 
-# Create firebase db, if needed
+# Create firebase db and give service account rights, if needed
 if [[ $(gcloud app describe 2>&1 || true) == *'ERROR'* ]]; then echo 'No app engine or firestore instances found, creating...' && gcloud app create --region=europe-west; fi
 gcloud alpha firestore databases update --type=firestore-native
-PROJECTNUMBER=$(gcloud projects list --filter=\"$(gcloud config get-value project)\" --format=\"value(PROJECT_NUMBER)\") && gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=\"serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com\" --role='roles/datastore.user'
-PROJECTNUMBER=$(gcloud projects list --filter=\"$(gcloud config get-value project)\" --format=\"value(PROJECT_NUMBER)\") && gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=\"serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com\" --role='roles/aiplatform.user'
-PROJECTNUMBER=$(gcloud projects list --filter=\"$(gcloud config get-value project)\" --format=\"value(PROJECT_NUMBER)\") && gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=\"serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com\" --role='roles/documentai.apiUser'
-PROJECTNUMBER=$(gcloud projects list --filter=\"$(gcloud config get-value project)\" --format=\"value(PROJECT_NUMBER)\") && echo \"Add user $PROJECTNUMBER-compute@developer.gserviceaccount.com to your AppSheet Google Drive folder with Read permissions.\"
+PROJECTNUMBER=$(gcloud projects describe $PROJECT --format="value(projectNumber)")
+gcloud projects add-iam-policy-binding $PROJECT --member="serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com" --role='roles/datastore.user'
+gcloud projects add-iam-policy-binding $PROJECT --member="serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com" --role='roles/aiplatform.user'
+gcloud projects add-iam-policy-binding $PROJECT --member="serviceAccount:$PROJECTNUMBER-compute@developer.gserviceaccount.com" --role='roles/documentai.apiUser'
+echo "Add user $PROJECTNUMBER-compute@developer.gserviceaccount.com to your AppSheet Google Drive folder with Read permissions."
 
 # Submit build
 gcloud builds submit --config=cloudbuild.yaml \

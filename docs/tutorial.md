@@ -2,21 +2,22 @@
 
 ---
 
-This tutorial helps you deploy the AppSheet DocAI Adapter service into a GCP project, setup a lightweight database with Firebase to store document data, and offer an API to AppSheet apps to utilize 
+This tutorial helps you deploy the AppSheet DocAI Adapter service into a GCP project, setup a lightweight database with Firebase to store document data, and offer an API to AppSheet apps to utilize service in a no-code app.
+
 Let's get started!
 
 ---
 
 ## Setup environment
 
-Edit the provided sample `env.sh` file, and set the environment variables there for your deployment.
+Edit the provided sample `1_env.sh` file, and set the environment variables there for your deployment.
 
-Click <walkthrough-editor-open-file filePath="env.sh">here</walkthrough-editor-open-file> to open the file in the editor
+Click <walkthrough-editor-open-file filePath="1_env.sh">here</walkthrough-editor-open-file> to open the file in the editor
 
-Then, source the `env.sh` file in the Cloud shell.
+Then, source the `1_env.sh` file in the Cloud shell.
 
 ```sh
-source ./env.sh
+source ./1_env.sh
 ```
 ---
 
